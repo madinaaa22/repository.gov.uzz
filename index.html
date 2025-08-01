@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Проверка PIN-кода</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="alert-box">
+      Пожалуйста, пройдите авторизацию чтобы система определила вас. 
+      Если документ принадлежит вам, введения ПИН кода не требуется. 
+      <a href="#">Нажмите здесь для авторизации</a>
+    </div>
+
+    <h2>Введите PIN-код для просмотра документа</h2>
+    <label for="pin">ПИН код</label>
+    <input type="text" id="pin" placeholder="Введите PIN" autocomplete="off" />
+    <button onclick="checkPIN()">Открыть</button>
+    <p id="message" class="message"></p>
+    <p class="note">PIN-код размещается рядом с QR-кодом документа</p>
+
+    <img src="photo.jpg" alt="Документ" class="doc-image" />
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
