@@ -5,11 +5,11 @@ function checkPIN() {
   message.textContent = "";
   message.style.color = "red";
 
-  if (pin === "7890") {
+  if (pin === "1290") {
     message.style.color = "green";
     message.textContent = "Успешно! Документ открывается...";
     setTimeout(() => {
-      window.location.href = "https://drive.google.com/file/d/1UVDpa4gfquwM2BGaidqI5qK3r8lFC9Bp/view";
+      window.location.href = "https://drive.google.com/file/d/1Vlk7IryGyV5FTCqzdj7bcT5KxIHd2ng-/view";
     }, 1000);
   } else {
     message.textContent = "Неверный PIN-код. Пожалуйста, попробуйте снова.";
