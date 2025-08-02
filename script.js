@@ -1,27 +1,61 @@
 let generatedCaptcha = "";
 
-// Harflardan iborat CAPTCHA yaratish
 function generateCaptcha() {
   const canvas = document.getElementById("captchaCanvas");
   const ctx = canvas.getContext("2d");
 
-  // Canvas tozalash
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  // O'lcham va tozalash
+  const width = canvas.width;
+  const height = canvas.height;
+  ctx.clearRect(0, 0, width, height);
 
-  // Faqat harflar (raqam yo‘q)
+  // Tasodifiy fon rangi
+  const bgColors = ["#e0d4fc", "#cdebf9", "#ffd6e0", "#fdfdcf", "#dcf8c6"];
+  ctx.fillStyle = bgColors[Math.floor(Math.random() * bgColors.length)];
+  ctx.fillRect(0, 0, width, height);
+
+  // Harflar
   const chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz";
   generatedCaptcha = "";
   for (let i = 0; i < 5; i++) {
-    generatedCaptcha += chars.charAt(Math.floor(Math.random() * chars.length));
+    const char = chars.charAt(Math.floor(Math.random() * chars.length));
+    generatedCaptcha += char;
+
+    // Harflar rangi va joylashuvi
+    ctx.font = "bold 22px Arial";
+    ctx.fillStyle = getRandomColor();
+    const x = 10 + i * 18 + Math.random() * 5;
+    const y = 25 + Math.random() * 5;
+    ctx.fillText(char, x, y);
   }
 
-  // CAPTCHA ni chizish
-  ctx.font = "24px Arial";
-  ctx.fillStyle = "#333";
-  ctx.fillText(generatedCaptcha, 10, 30);
+  // Tasodifiy nuqtalar
+  for (let i = 0; i < 50; i++) {
+    ctx.fillStyle = getRandomColor();
+    ctx.beginPath();
+    ctx.arc(Math.random() * width, Math.random() * height, 1, 0, 2 * Math.PI);
+    ctx.fill();
+  }
+
+  // Tasodifiy chiziqlar
+  for (let i = 0; i < 3; i++) {
+    ctx.strokeStyle = getRandomColor();
+    ctx.beginPath();
+    ctx.moveTo(Math.random() * width, Math.random() * height);
+    ctx.lineTo(Math.random() * width, Math.random() * height);
+    ctx.stroke();
+  }
 }
 
-// PIN va CAPTCHA tekshirish
+function getRandomColor() {
+  const letters = "0123456789ABCDEF";
+  let color = "#";
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+
 function checkPIN() {
   const pin = document.getElementById("pin").value.trim();
   const captchaInput = document.getElementById("captchaInput").value.trim();
@@ -32,7 +66,7 @@ function checkPIN() {
 
   if (captchaInput !== generatedCaptcha) {
     message.textContent = "Код проверки введен неверно.";
-    generateCaptcha(); // yangilash
+    generateCaptcha();
     return;
   }
 
@@ -47,7 +81,6 @@ function checkPIN() {
   }
 }
 
-// Klaviaturada Enter bosilsa PIN tekshiradi
 document.getElementById("pin").addEventListener("keydown", function (event) {
   if (event.key === "Enter") {
     event.preventDefault();
@@ -55,5 +88,4 @@ document.getElementById("pin").addEventListener("keydown", function (event) {
   }
 });
 
-// Sahifa yuklanganda CAPTCHA avtomatik hosil bo‘ladi
 window.onload = generateCaptcha;
