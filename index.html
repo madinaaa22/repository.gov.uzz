@@ -15,8 +15,17 @@
     </div>
 
     <h2>Введите PIN-код для просмотра документа</h2>
+
     <label for="pin">ПИН код</label>
     <input type="text" id="pin" placeholder="Введите PIN" autocomplete="off" />
+
+    <label for="captchaInput">Код проверки</label>
+    <div class="captcha-box">
+      <canvas id="captchaCanvas" width="100" height="40"></canvas>
+      <button onclick="generateCaptcha()" type="button">🔄</button>
+    </div>
+    <input type="text" id="captchaInput" placeholder="Введите ответ" autocomplete="off" />
+
     <button onclick="checkPIN()">Открыть</button>
     <p id="message" class="message"></p>
     <p class="note">PIN-код размещается рядом с QR-кодом документа</p>

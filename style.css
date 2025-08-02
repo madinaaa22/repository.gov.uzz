@@ -73,11 +73,23 @@ button:hover {
   font-size: 13px;
   color: #666;
 }
+
 .doc-image {
   width: 40%;
   display: block;
-  margin: 20px auto 0 auto; /* yuqoridan 20px, o'rtaga avtomatik */
+  margin: 20px auto 0 auto;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
 
+.captcha-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+canvas {
+  border: 1px solid #ccc;
+  background: #fff;
+}
