@@ -1,22 +1,27 @@
 let generatedCaptcha = "";
 
+// Harflardan iborat CAPTCHA yaratish
 function generateCaptcha() {
   const canvas = document.getElementById("captchaCanvas");
   const ctx = canvas.getContext("2d");
 
+  // Canvas tozalash
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789";
+  // Faqat harflar (raqam yo‘q)
+  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz";
   generatedCaptcha = "";
   for (let i = 0; i < 5; i++) {
     generatedCaptcha += chars.charAt(Math.floor(Math.random() * chars.length));
   }
 
+  // CAPTCHA ni chizish
   ctx.font = "24px Arial";
   ctx.fillStyle = "#333";
   ctx.fillText(generatedCaptcha, 10, 30);
 }
 
+// PIN va CAPTCHA tekshirish
 function checkPIN() {
   const pin = document.getElementById("pin").value.trim();
   const captchaInput = document.getElementById("captchaInput").value.trim();
@@ -27,7 +32,7 @@ function checkPIN() {
 
   if (captchaInput !== generatedCaptcha) {
     message.textContent = "Код проверки введен неверно.";
-    generateCaptcha();
+    generateCaptcha(); // yangilash
     return;
   }
 
@@ -42,6 +47,7 @@ function checkPIN() {
   }
 }
 
+// Klaviaturada Enter bosilsa PIN tekshiradi
 document.getElementById("pin").addEventListener("keydown", function (event) {
   if (event.key === "Enter") {
     event.preventDefault();
@@ -49,4 +55,5 @@ document.getElementById("pin").addEventListener("keydown", function (event) {
   }
 });
 
+// Sahifa yuklanganda CAPTCHA avtomatik hosil bo‘ladi
 window.onload = generateCaptcha;
